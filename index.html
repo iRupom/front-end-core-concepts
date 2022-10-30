@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Data Loading</title>
+  <style>
+    body {
+      background-color: wheat;
+    }
+
+    .user {
+      background-color: lightsalmon;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      box-shadow: 5px 5px 10px lightgray;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+
+  </div>
+  <script>
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(data => displayData(data));
+
+    function displayData(data) {
+      let userHTML = '';
+      //   console.log(data);
+
+      data.forEach(user => {
+        userHTML = userHTML + `<div class="user"> 
+              <h2>Name:        ${user.name}</h2>
+              <p>Email:             ${user.email}</p>
+              <p>${user.company.name} ${user.company.catchPhrase} ${user.company.bs}</p>
+              </div>`;
+      });
+
+      userContainer = document.getElementById('container');
+      userContainer.innerHTML = userHTML;
+    }
+  </script>
+</body>
+
+</html>
